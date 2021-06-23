@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+{% load static %}
+{%block content%}
+    <!-- Preloader -->
+    <div id="preloader">
+        <i class="circle-preloader"></i>
+        <img src="{% static 'img/core-img/pizza.png'%}" alt="">
+    </div>
+
+{% include 'partials/topo.html' %}
+<div class="contact-area section-padding-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h3>Olá {{ user.username }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+ {% include 'partials/receitas.html'%}
+ {% include 'partials/footer.html'%}
+ {%endblock%}

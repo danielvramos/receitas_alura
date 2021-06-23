@@ -1,0 +1,17 @@
+{%extends 'base.html'%}
+{% load static %}
+{%block content%}
+    <!-- Preloader -->
+    <div id="preloader">
+        <i class="circle-preloader"></i>
+        <img src="{% static 'img/core-img/pizza.png'%}" alt="">
+    </div>
+
+    
+
+   {% include 'partials/topo.html'%}
+
+   {% include 'partials/receitas.html'%}
+
+    {% include 'partials/footer.html'%}
+    {%endblock%}
