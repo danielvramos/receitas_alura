@@ -13,21 +13,24 @@ def cadastro(request):
         senha = request.POST['password']
         senha2 = request.POST['password2']
         if not nome.strip():
-            print('Nome não pode ficar em branco')
+            
+            messages.error(request,'Nome não pode ficar em branco')
             return redirect('cadastro')
         if not email.strip():
-            print('E-maiil não pode ficar em branco')
+            
+            messages.error(request,'E-maiil não pode ficar em branco')
             return redirect('cadastro')
         if senha != senha2:
             messages.error(request,'As SEnhas não são iguais')
-            print('Senhas devem ser iguais')
+            
             return redirect('cadastro')
         if auth.models.User.objects.filter(email=email).exists() or auth.models.User.objects.filter(username=nome).exists() :
-            print('usuadio já cadastrado!')
+            
+            messages.error(request,'usuadio já cadastrado!')
             return redirect('cadastro')
         user = auth.models.User.objects.create_user(username = nome, email = email,password=senha)
         user.save()
-        print("Ususario criado com sucesso!")
+       
         messages.success(request,'Ususario criado com sucesso!')
         return redirect('login')
     else:
@@ -39,15 +42,15 @@ def login(request):
         senha = request.POST['senha']
         email = request.POST['email']
         if email=="" or senha=='':
-            print('E-maiil e senha não podem ficar em branco')
+            messages.error(request,'E-maiil e senha não podem ficar em branco')
+            
             return redirect('login')
         if auth.models.User.objects.filter(email=email).exists():
             nome = auth.models.User.objects.filter(email=email).values_list('username',flat=True)[0]
-            print(nome)
+           
             user = auth.authenticate(request, username=nome, password=senha)
             if user is not None:
                 auth.login(request,user)
-            print("Login realizado com sucesso!")
             return redirect('dashboard')
     return render(request,'usuarios/login.html')
 
